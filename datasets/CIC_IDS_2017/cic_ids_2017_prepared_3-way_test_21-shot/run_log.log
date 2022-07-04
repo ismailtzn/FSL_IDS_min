@@ -1,0 +1,129 @@
+2022-06-13 01:46:57,727 [INFO] Initialized logging. log_filename = cic_ids_2017_prepared_3-way_test_21-shot/run_log.log
+2022-06-13 01:46:57,727 [INFO] Running script with following parameters
+{'hdf_key': 'cic_ids_2017',
+ 'ids2017_datasets_dir': 'MachineLearningCSV/MachineLearningCVE',
+ 'ids2017_files_list': ['Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv',
+                        'Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv',
+                        'Friday-WorkingHours-Morning.pcap_ISCX.csv',
+                        'Monday-WorkingHours.pcap_ISCX.csv',
+                        'Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv',
+                        'Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv',
+                        'Tuesday-WorkingHours.pcap_ISCX.csv',
+                        'Wednesday-workingHours.pcap_ISCX.csv'],
+ 'meta_test_class_count': 3,
+ 'output_dir': 'cic_ids_2017_prepared_3-way_test_21-shot',
+ 'output_dir_prefix': 'cic_ids_2017_prepared',
+ 'sample_per_class': 21}
+2022-06-13 01:46:57,728 [INFO] Loading datasets
+2022-06-13 01:46:57,728 [INFO] Loading datasets in files
+2022-06-13 01:46:57,728 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
+2022-06-13 01:46:59,205 [INFO] Reading complete. time_to_read=1.48 sec
+2022-06-13 01:46:59,206 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv
+2022-06-13 01:47:00,741 [INFO] Reading complete. time_to_read=1.53 sec
+2022-06-13 01:47:00,741 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Friday-WorkingHours-Morning.pcap_ISCX.csv
+2022-06-13 01:47:01,755 [INFO] Reading complete. time_to_read=1.01 sec
+2022-06-13 01:47:01,756 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Monday-WorkingHours.pcap_ISCX.csv
+2022-06-13 01:47:05,454 [INFO] Reading complete. time_to_read=3.70 sec
+2022-06-13 01:47:05,454 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv
+2022-06-13 01:47:06,951 [INFO] Reading complete. time_to_read=1.50 sec
+2022-06-13 01:47:06,952 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv
+2022-06-13 01:47:07,835 [INFO] Reading complete. time_to_read=0.88 sec
+2022-06-13 01:47:07,835 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Tuesday-WorkingHours.pcap_ISCX.csv
+2022-06-13 01:47:11,103 [INFO] Reading complete. time_to_read=3.27 sec
+2022-06-13 01:47:11,104 [INFO] Reading CSV dataset MachineLearningCSV/MachineLearningCVE/Wednesday-workingHours.pcap_ISCX.csv
+2022-06-13 01:47:16,243 [INFO] Reading complete. time_to_read=5.14 sec
+2022-06-13 01:47:22,388 [INFO] Loading datasets complete
+2022-06-13 01:47:22,471 [INFO] Converting unicode labels to ascii
+2022-06-13 01:47:25,291 [INFO] Converting object type in columns 14, 15 to float64
+2022-06-13 01:47:26,989 [INFO] Removing invalid values (inf, nan)
+2022-06-13 01:47:31,060 [INFO] Removed no. of rows = 2867
+2022-06-13 01:47:31,186 [INFO] Total count = 2827876
+2022-06-13 01:47:31,186 [INFO] Label counts below
+2022-06-13 01:47:31,187 [INFO] 
+BENIGN                      2271320
+DoS Hulk                     230124
+PortScan                     158804
+DDoS                         128025
+DoS GoldenEye                 10293
+FTP-Patator                    7935
+SSH-Patator                    5897
+DoS slowloris                  5796
+DoS Slowhttptest               5499
+Bot                            1956
+Web Attack Brute Force         1507
+Web Attack XSS                  652
+Infiltration                     36
+Web Attack Sql Injection         21
+Heartbleed                       11
+Name: Label, dtype: int64
+2022-06-13 01:47:31,187 [INFO] Label percentages below
+2022-06-13 01:47:31,187 [INFO] 
+BENIGN                     0.8032
+DoS Hulk                   0.0814
+PortScan                   0.0562
+DDoS                       0.0453
+DoS GoldenEye              0.0036
+FTP-Patator                0.0028
+SSH-Patator                0.0021
+DoS slowloris              0.0020
+DoS Slowhttptest           0.0019
+Bot                        0.0007
+Web Attack Brute Force     0.0005
+Web Attack XSS             0.0002
+Infiltration               0.0000
+Web Attack Sql Injection   0.0000
+Heartbleed                 0.0000
+Name: Label, dtype: float64
+2022-06-13 01:47:38,687 [INFO] Train set :
+BENIGN                      21
+Bot                         21
+DDoS                        21
+DoS GoldenEye               21
+DoS Hulk                    21
+DoS slowloris               21
+FTP-Patator                 21
+SSH-Patator                 21
+Web Attack Brute Force      21
+Web Attack Sql Injection    21
+Web Attack XSS              21
+Name: Label, dtype: int64
+2022-06-13 01:47:38,688 [INFO] Test set :
+DoS Slowhttptest    21
+Infiltration        21
+PortScan            21
+Name: Label, dtype: int64
+2022-06-13 01:47:38,825 [INFO] Remaining df :
+BENIGN                    2271299
+DoS Hulk                   230103
+PortScan                   158783
+DDoS                       128004
+DoS GoldenEye               10272
+FTP-Patator                  7914
+SSH-Patator                  5876
+DoS slowloris                5775
+DoS Slowhttptest             5478
+Bot                          1935
+Web Attack Brute Force       1486
+Web Attack XSS                631
+Infiltration                   15
+Heartbleed                     11
+Name: Label, dtype: int64
+2022-06-13 01:47:38,825 [INFO] Saving prepared datasets (train, val, test) to: cic_ids_2017_prepared_3-way_test_21-shot
+2022-06-13 01:47:38,827 [INFO] Writing dataset to HDF5 format. filename=cic_ids_2017_prepared_3-way_test_21-shot/x_meta_train.h5
+2022-06-13 01:47:38,967 [INFO] Writing complete. time_to_write=0.13994312286376953
+2022-06-13 01:47:38,967 [INFO] Writing dataset to HDF5 format. filename=cic_ids_2017_prepared_3-way_test_21-shot/y_meta_train.h5
+2022-06-13 01:47:38,975 [INFO] Writing complete. time_to_write=0.0074748992919921875
+2022-06-13 01:47:38,975 [INFO] Writing dataset to HDF5 format. filename=cic_ids_2017_prepared_3-way_test_21-shot/x_meta_test.h5
+2022-06-13 01:47:38,985 [INFO] Writing complete. time_to_write=0.009711742401123047
+2022-06-13 01:47:38,985 [INFO] Writing dataset to HDF5 format. filename=cic_ids_2017_prepared_3-way_test_21-shot/y_meta_test.h5
+2022-06-13 01:47:38,989 [INFO] Writing complete. time_to_write=0.0038459300994873047
+2022-06-13 01:47:38,989 [INFO] Writing dataset to HDF5 format. filename=cic_ids_2017_prepared_3-way_test_21-shot/remaining_df.h5
+2022-06-13 01:48:07,507 [INFO] Writing complete. time_to_write=28.518141269683838
+2022-06-13 01:48:07,507 [INFO] Saving complete
+2022-06-13 01:48:07,507 [INFO] Meta train dataset shape = (231, 78)
+2022-06-13 01:48:07,507 [INFO] Meta test dataset shape = (63, 78)
+2022-06-13 01:48:07,508 [INFO] 11 Labels used int meta train = 
+BENIGN, Bot, DDoS, DoS GoldenEye, DoS Hulk, DoS slowloris, FTP-Patator, SSH-Patator, Web Attack Brute Force, Web Attack Sql Injection, Web Attack XSS
+2022-06-13 01:48:07,508 [INFO] 3 Labels used int meta test = 
+DoS Slowhttptest, Infiltration, PortScan
+2022-06-13 01:48:07,629 [INFO] Data preparation complete
