@@ -1,0 +1,10 @@
+*.tar
+history/
+models/
+individual_logs/
+run_experiments_logs/
+runs/
+new_tests/
+run_experiments.log
+submit_pytorch_task*.sh
+experiment.out
