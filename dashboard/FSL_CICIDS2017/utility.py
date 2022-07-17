@@ -114,6 +114,7 @@ def extract_sample(n_way, n_support, n_query, data_x, data_y):
     s_true_labels = []
     query_set = []
     q_true_labels = []
+    feature_count = data_x.shape[1]
     available_classes = get_available_classes(data_y, (n_support + n_query))
 
     class_labels = np.random.choice(available_classes, n_way, replace=False)
@@ -130,7 +131,7 @@ def extract_sample(n_way, n_support, n_query, data_x, data_y):
 
     support_set = np.array(support_set)
     support_set = torch.from_numpy(support_set).float()
-    support_set = support_set.view(n_way, n_support, 1, 78)
+    support_set = support_set.view(n_way, n_support, 1, feature_count)
     support_set = support_set.cuda()
     s_true_labels = torch.Tensor(s_true_labels).cuda()
     s_true_labels = s_true_labels.view(n_way, n_support, 1).long()
@@ -138,7 +139,7 @@ def extract_sample(n_way, n_support, n_query, data_x, data_y):
 
     query_set = np.array(query_set)
     query_set = torch.from_numpy(query_set).float()
-    query_set = query_set.view(n_way, n_query, 1, 78)
+    query_set = query_set.view(n_way, n_query, 1, feature_count)
     query_set = query_set.cuda()
 
     q_true_labels = torch.Tensor(q_true_labels).cuda()
@@ -183,6 +184,50 @@ def load_protonet_conv(**kwargs):
 
     return ProtoNet.ProtoNet(encoder, n_way, n_support, n_query)
 
+
+def load_protonet_ann(**kwargs):
+    """
+    Loads the prototypical network model
+    Arg:
+        x_dim (tuple): dimension of input instance
+        hid_dim (int): dimension of hidden layers
+        z_dim (int): dimension of embedded instance
+    Returns:
+        Model (Class ProtoNet)
+    """
+    x_dim = kwargs["x_dim"]
+    hid_dim = kwargs["hid_dim"]
+    z_dim = kwargs["z_dim"]
+    n_way = kwargs["n_way"]
+    n_support = kwargs["n_support"]
+    n_query = kwargs["n_query"]
+
+    layer1 = nn.Sequential(
+        nn.Linear(in_features=x_dim[1], out_features=hid_dim),
+        nn.BatchNorm1d(1),
+        nn.ReLU(),
+        nn.Dropout(0.2)
+    )
+    layer2 = nn.Sequential(
+        nn.Linear(in_features=hid_dim, out_features=hid_dim),
+        nn.BatchNorm1d(1),
+        nn.ReLU(),
+        nn.Dropout(0.2)
+    )
+    layer3 = nn.Sequential(
+        nn.Linear(in_features=hid_dim, out_features=z_dim),
+        nn.BatchNorm1d(1),
+        nn.ReLU(),
+        nn.Dropout(0.2)
+    )
+    encoder = nn.Sequential(
+        layer1,
+        layer2,
+        layer3,
+        ProtoNet.Flatten()
+    )
+
+    return ProtoNet.ProtoNet(encoder, n_way, n_support, n_query)
 
 def sum_dicts(x, y):
     result = {}

@@ -48,19 +48,19 @@ def load_datasets(exp_config, hdf_key="cic_ids_2017"):
 
     x_train_dfs = [pd.read_hdf(file, hdf_key) for file in x_train_files]
     y_train_dfs = [pd.read_hdf(file, hdf_key) for file in y_train_files]
-    # x_test_dfs = [pd.read_hdf(file, hdf_key) for file in x_test_files]
-    # y_test_dfs = [pd.read_hdf(file, hdf_key) for file in y_test_files]
+    x_test_dfs = [pd.read_hdf(file, hdf_key) for file in x_test_files]
+    y_test_dfs = [pd.read_hdf(file, hdf_key) for file in y_test_files]
     x_val_dfs = [pd.read_hdf(file, hdf_key) for file in x_val_files]
     y_val_dfs = [pd.read_hdf(file, hdf_key) for file in y_val_files]
 
-    # x_test_df = pd.concat(x_test_dfs)
-    # y_test_df = pd.concat(y_test_dfs)
+    x_test_df = pd.concat(x_test_dfs)
+    y_test_df = pd.concat(y_test_dfs)
 
-    # y_test_df = y_test_df.groupby(y_test_df).sample(n=exp_config["k"])
-    # x_test_df = x_test_df.loc[y_test_df.index]
+    y_test_df = y_test_df.groupby(y_test_df).sample(n=exp_config["k"])
+    x_test_df = x_test_df.loc[y_test_df.index]
 
-    # x_train_dfs.append(x_test_df)
-    # y_train_dfs.append(y_test_df)
+    x_train_dfs.append(x_test_df)
+    y_train_dfs.append(y_test_df)
 
     x_train = pd.concat(x_train_dfs)
     x_val = pd.concat(x_val_dfs)
@@ -95,30 +95,34 @@ def evaluate_intrusion_detector(classifier, X_test, y_test, label_encoder):
 def write_report(result_dir, evaluation_info, classes):
     general_info, detailed_info, cf_matrix, report = evaluation_info
     classes = list(classes)
-    with open(result_dir + "/cf_matrix.csv", "w") as f:
+    with open(result_dir + "/cf_matrix.csv", "a") as f:
+        f.write("\n")
         f.write(tabulate(cf_matrix, tablefmt="plain", showindex=classes, headers=classes))
 
     general_df = pd.DataFrame(general_info, index=[0])
     detailed_df = pd.DataFrame(detailed_info, index=[0])
 
-    general_df.to_csv(result_dir + '/base_general_eval_info_table.csv', sep='\t')
-    detailed_df.to_csv(result_dir + '/base_detailed_eval_info_table.csv', sep='\t')
+    general_out_path = result_dir + '/base_general_eval_info_table.csv'
+    general_df.to_csv(general_out_path, sep='\t', mode='a', header=not os.path.exists(general_out_path))
+    detailed_out_path = result_dir + '/base_detailed_eval_info_table.csv'
+    detailed_df.to_csv(detailed_out_path, sep='\t', mode='a', header=not os.path.exists(detailed_out_path))
+
 
 
 def run_experiment(exp_config, classifier_config):
     # load dataset
     datasets_orig = load_datasets(exp_config)
     (X_train, y_train), (X_test, y_test) = datasets_orig
-    # y_train_enc, label_encoder = utility.encode_data(y_train)
-    label_encoder, unused = utility.encode_labels(y_test, encoder=None)
-    unused, y_train_enc = utility.encode_labels(y_train, encoder=label_encoder)
+    y_train_enc, label_encoder = utility.encode_data(y_train)
+    #label_encoder, unused = utility.encode_labels(y_test, encoder=None)
+    #unused, y_train_enc = utility.encode_labels(y_train, encoder=label_encoder)
 
     classifier = AttackClassifier(classifier_config)
     history = classifier.fit(X_train, y_train_enc)
     evaluation_info = evaluate_intrusion_detector(classifier, X_test, y_test, label_encoder)
     write_report(exp_config['results_dir'], evaluation_info, label_encoder.classes_)
-    utility.plot_training_history(history, exp_config['results_dir'])
-    utility.save_training_history(history, exp_config['results_dir'])
+    # utility.plot_training_history(history, exp_config['results_dir'])
+    # utility.save_training_history(history, exp_config['results_dir'])
 
 
 def main():

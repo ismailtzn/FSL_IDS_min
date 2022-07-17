@@ -12,26 +12,26 @@ if __name__ == '__main__':
                "--early_stop_change_acc_threshold {early_stop_change_acc_threshold} --early_stop_acc_window_length {early_stop_acc_window_length} " \
                "--early_stop_train_max_acc {early_stop_train_max_acc} "
 
-    experiment_dir_prefix_range = ["prototypical_XL"]
+    experiment_dir_prefix_range = ["prototypical_k_test_PS-B-FP-SP"]
     meta_train_n_way_range = [8]
-    meta_train_k_shot_range = [10]
-    meta_train_query_count_range = [64, 256, 460]
-    meta_train_max_epoch_range = [100]
-    meta_train_epoch_size_range = [100, 1000, 5000]
-    dataset_dir_range = ["../../datasets/CIC_IDS_2017/cic_ids_2017_prepared_4-way10-shot_T8n460q_E4n460q_V12n120q"]
+    meta_train_k_shot_range = [5, 10, 15, 20, 25, 50]
+    meta_train_query_count_range = [64, 128, 256, 420]
+    meta_train_max_epoch_range = [256]
+    meta_train_epoch_size_range = [256]
+    dataset_dir_range = ["../../datasets/CIC_IDS_2017/cic_ids_2017_8t470_4t470_12v130_PS-B-FP-SP"]
     model_x_dim0_range = [1]
     model_x_dim1_range = [78]
     model_hid_dim_range = [64, 128]
     model_z_dim_range = [64, 128]
     learning_rate_range = [0.001]
-    learning_rate_decay_range = [0.1, 0.25, 0.5]
+    learning_rate_decay_range = [0.1]
     meta_test_n_way_range = [4]
-    meta_test_k_shot_range = [10]
-    meta_test_query_count_range = [460]
+    meta_test_k_shot_range = [5, 10, 15, 20, 25, 50]
+    meta_test_query_count_range = [470]
     meta_test_episode_count_range = [1000]
-    early_stop_change_acc_threshold_range = [0.0002]
+    early_stop_change_acc_threshold_range = [0.00022]
     early_stop_acc_window_length_range = [5]
-    early_stop_train_max_acc_range = [0.985]
+    early_stop_train_max_acc_range = [0.98]
 
     for experiment_dir_prefix, meta_train_n_way, meta_train_k_shot, meta_train_query_count, meta_train_max_epoch, meta_train_epoch_size, dataset_dir, model_x_dim0, model_x_dim1, model_hid_dim, \
         model_z_dim, learning_rate, learning_rate_decay, meta_test_n_way, meta_test_k_shot, \
@@ -72,7 +72,7 @@ if __name__ == '__main__':
             learning_rate_decay=learning_rate_decay,
             meta_test_n_way=meta_test_n_way,
             meta_test_k_shot=meta_test_k_shot,
-            meta_test_query_count=meta_test_query_count,
+            meta_test_query_count=meta_test_query_count - meta_test_k_shot,
             meta_test_episode_count=meta_test_episode_count,
             early_stop_change_acc_threshold=early_stop_change_acc_threshold,
             early_stop_acc_window_length=early_stop_acc_window_length,
