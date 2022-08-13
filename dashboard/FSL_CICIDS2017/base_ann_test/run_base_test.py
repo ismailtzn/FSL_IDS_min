@@ -27,7 +27,7 @@ def create_result_dir(results_dir):
     logging.info('Created result directory: {}'.format(results_dir))
 
 
-def load_datasets(exp_config, hdf_key="cic_ids_2017"):
+def load_datasets(exp_config, hdf_key="unsw_nb15"):
     data_dir = exp_config['dataset_dir']
     x_train_files = glob.glob(data_dir + "/" + "x_meta_train*")
     y_train_files = glob.glob(data_dir + "/" + "y_meta_train*")

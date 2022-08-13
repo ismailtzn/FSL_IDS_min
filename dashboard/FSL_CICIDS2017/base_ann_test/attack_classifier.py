@@ -9,7 +9,7 @@ from keras.models import Sequential
 class AttackClassifier:
 
     def __init__(self, exp_params):
-        self.input_nodes = 78
+        self.input_nodes = 197
         self.output_nodes = exp_params['output_nodes']
         self.layer_nodes = [64]
         self.activations = ['relu']

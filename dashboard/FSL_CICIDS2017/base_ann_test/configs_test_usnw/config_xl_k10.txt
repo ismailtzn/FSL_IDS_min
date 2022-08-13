@@ -1,0 +1,11 @@
+{
+    'exp_config': {'dataset_dir': "../../../datasets/UNSW-NB15/unsw_nb15_prepared_6t470_3t470_9v130",
+                   'results_dir': "ann_test_usnw/ann_test_xl_10",
+                   'k': 10
+                   },
+
+    'classifier_config': {'output_nodes': 3,
+                          'batch_size': 256,
+                          'epochs': 10000
+                          }
+}
